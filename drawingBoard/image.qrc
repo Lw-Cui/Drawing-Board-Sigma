@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/action">
+        <file alias="undo">resources/undo.png</file>
+        <file alias="redo">resources/redo.png</file>
+        <file alias="open">resources/add.png</file>
+        <file alias="save">resources/archives.png</file>
+    </qresource>
+    <qresource prefix="/shape">
+        <file alias="triangle">resources/arrow_triangle.png</file>
+        <file alias="circle">resources/circle.png</file>
+        <file alias="ellipse">resources/Ellipse.png</file>
+        <file alias="straight">resources/horizontal_straight.png</file>
+        <file alias="pentagon">resources/Pentagon__64.png</file>
+        <file alias="rect">resources/rectangle.png</file>
+        <file alias="scribble">resources/scribble.png</file>
+    </qresource>
+    <qresource prefix="/cursor">
+        <file alias="scribble">resources/x.png</file>
+        <file alias="move">resources/move.png</file>
+    </qresource>
+</RCC>
