@@ -1,11 +1,13 @@
 #include <QtWidgets>
 #include "scribblearea.h"
+#include "plugininterface.h"
 
 ScribbleArea::ScribbleArea()
 {
     setScribble();
     resizeCanvas(QSize(470, 350));
     fileSuffix.append("pt");
+    factory.loadPlugin(qApp->applicationDirPath());
     modified = false;
     setMouseTracking(true);
 }
@@ -59,38 +61,13 @@ void ScribbleArea::loadMyFormat(const QString &fileName)
 
     in >> canvas >> backGround;
 
-    int size;
-    in >> size;
-
-    while (size--) {
-        int type;
-        VisualObject *obj;
-        in >> type;
-        switch (type) {
-        case 1:
-            obj = new VisualLine;
-            break;
-        case 2:
-            obj = new Circle;
-            break;
-        case 3:
-            obj = new Rect;
-            break;
-        case 4:
-            obj = new Ellipse;
-            break;
-        case 5:
-            obj = new Straight;
-            break;
-        case 6:
-            obj = new Triangle;
-        default:
-            break;
-        }
+    while (in.status() != QDataStream::ReadPastEnd) {
+        int tmp;
+        in >> tmp;
+        VisualObject *obj = factory.getPlugin(static_cast<CurrentShape>(tmp));
         obj->readFromStram(in);
         AllShape.append(QPointer<VisualObject>(obj));
     }
-
     update();
 }
 
@@ -103,29 +80,9 @@ void ScribbleArea::saveFile(const QString &fileName)
     out << (quint32)0xA0B0C0D0;
     out.setVersion(QDataStream::Qt_5_4);
 
-    out << canvas << backGround << AllShape.size();
+    out << canvas << backGround;
     foreach(QPointer<VisualObject> ite, AllShape) {
-        switch (ite->myShape) {
-        case scribble:
-            out << 1;
-            break;
-        case circle:
-            out << 2;
-            break;
-        case rectangle:
-            out << 3;
-            break;
-        case ellipse:
-            out << 4;
-            break;
-        case straight:
-            out << 5;
-            break;
-        case triangle:
-            out << 6;
-        default:
-            break;
-        }
+        out << static_cast<int>(ite->myShape);
         ite->writeToStream(out);
     }
 }
@@ -142,35 +99,11 @@ const QSize ScribbleArea::getSize()
 
 void ScribbleArea::newDrawEntity(const QPoint &nowPosition)
 {
-    VisualObject *obj;
-    switch (shape) {
-    case scribble:
-        obj = new VisualLine;
-        break;
-    case circle:
-        obj = new Circle;
-        break;
-    case rectangle:
-        obj = new Rect;
-        break;
-    case ellipse:
-        obj = new Ellipse;
-        break;
-    case straight:
-        obj = new Straight;
-        break;
-    case triangle:
-        obj = new Triangle;
-        break;
-    default:
-        break;
-    }
-
-    drawEntity = QPointer<VisualObject>(obj);
+    drawEntity = QPointer<VisualObject>(factory.getPlugin(shape));
     drawEntity->setDrawStart(nowPosition);
     emit undoAvailable(true);
 }
-
+/*
 void ScribbleArea::findMoveEntity(const QPoint &point)
 {
     moveEntity.clear();
@@ -187,6 +120,7 @@ void ScribbleArea::findMoveEntity(const QPoint &point)
         }
     }
 }
+*/
 
 void ScribbleArea::setRect()
 {
@@ -289,7 +223,7 @@ void ScribbleArea::mousePressEvent(QMouseEvent *event)
             newDrawEntity(event->pos());
         break;
     case moving:
-        findMoveEntity(event->pos());
+        //findMoveEntity(event->pos());
         break;
     default:
         break;
@@ -310,6 +244,7 @@ void ScribbleArea::mouseReleaseEvent(QMouseEvent *event)
             }
         }
         break;
+        /*
     case moving:
         if (!moveEntity.isNull()) {
             moveEntity->moveTo(event->pos());
@@ -318,6 +253,7 @@ void ScribbleArea::mouseReleaseEvent(QMouseEvent *event)
             moveEntity.clear();
         }
         break;
+        */
     default:
         break;
     }
@@ -332,12 +268,14 @@ void ScribbleArea::mouseMoveEvent(QMouseEvent *event)
             update();
         }
         break;
+        /*
     case moving:
         if (!moveEntity.isNull()) {
             moveEntity->moveTo(event->pos());
             update();
         }
         break;
+        */
     default:
         break;
     }
@@ -353,9 +291,39 @@ void ScribbleArea::paintEvent(QPaintEvent *)
         ite->paintWith(Painter);
     if (!drawEntity.isNull())
         drawEntity->paintWith(Painter);
+    /*
     if (!moveEntity.isNull())
         moveEntity->paintWith(Painter);
+        */
 
     QPainter Paint(this);
     Paint.drawImage(QPoint(0, 0), canvas);
+}
+
+void pluginFactory::loadPlugin(const QString &path)
+{
+    QDir pluginsDir(path);
+    pluginsDir.cdUp();
+    pluginsDir.cd("plugDir");
+
+    foreach (QString fileName, pluginsDir.entryList(QDir::Files))
+        pluginLoder.push_back(new QPluginLoader(pluginsDir.absoluteFilePath(fileName)));
+}
+
+VisualObject *pluginFactory::getPlugin(CurrentShape shape)
+{
+    foreach (QPluginLoader *loader, pluginLoder) {
+        //VisualObject *ret = qobject_cast<VisualObject *>(loader->instance());
+        QObject *p = loader->instance();
+        VisualObject *ret = qobject_cast<VisualObject *>(p);
+        if (ret && ret->myShape == shape)
+            return ret;
+    }
+    return NULL;
+}
+
+pluginFactory::~pluginFactory()
+{
+    foreach (QPluginLoader *loader, pluginLoder)
+        delete loader;
 }

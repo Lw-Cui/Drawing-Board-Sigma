@@ -25,8 +25,9 @@ enum MouseStatus {
     Release
 };
 
-class VisualObject
+class VisualObject //: public QObject
 {
+    //Q_OBJECT
 public:
     virtual void setDrawStart(const QPoint &point) = 0;
 

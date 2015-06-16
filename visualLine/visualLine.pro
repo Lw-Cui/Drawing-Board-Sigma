@@ -4,9 +4,8 @@ QT             += widgets
 INCLUDEPATH    += ../drawingBoard
 TARGET 		= visualLine
 DESTDIR         = ../plugDir
-HEADERS 	+= \
+SOURCES 	+= \
     visualline.cpp
 
 HEADERS += \
     visualline.h
-

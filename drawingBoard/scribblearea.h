@@ -4,16 +4,29 @@
 #include <QDataStream>
 #include <QWidget>
 #include <QSize>
+#include <QObject>
 #include <QList>
 #include <QPointer>
 #include <QString>
 #include <QImage>
+#include <QPluginLoader>
 #include <QPoint>
-#include "visualobject.h"
+#include "plugininterface.h"
 
 enum CurrentOp {
     drawing,
     moving
+};
+
+class pluginFactory
+{
+public:
+    void loadPlugin(const QString &path);
+    VisualObject *getPlugin(enum CurrentShape shape);
+
+    ~pluginFactory();
+private:
+    QVector<QPluginLoader *> pluginLoder;
 };
 
 class ScribbleArea : public QWidget
@@ -60,13 +73,17 @@ protected:
     void paintEvent(QPaintEvent *);
 
 private:
+    void loadPlugin();
+
     void newDrawEntity(const QPoint &);
-    void findMoveEntity(const QPoint &point);
+    //void findMoveEntity(const QPoint &point);
 
     void loadImage(const QString &fileName);
     void loadMyFormat(const QString &fileName);
 
     QImage canvas, backGround;
+
+    pluginFactory factory;
 
     QList<QPointer<VisualObject> > AllShape;
     QList<QPointer<VisualObject> > cacheShape;
@@ -74,7 +91,7 @@ private:
     CurrentOp op;
     CurrentShape shape;
 
-    QPointer<VisualArea> moveEntity;
+    //QPointer<VisualArea> moveEntity;
     QPointer<VisualObject> drawEntity;
 
     bool modified;

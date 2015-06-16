@@ -5,7 +5,7 @@ QT             += widgets
 INCLUDEPATH    += ../drawingBoard
 TARGET 		= straight
 DESTDIR         = ../plugDir
-HEADERS 	+= \
+SOURCES 	+= \
     straight.cpp
 
 HEADERS += \

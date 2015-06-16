@@ -3,9 +3,11 @@
 
 #include "plugininterface.h"
 
-class Rect : public QObject, VisualShape
+class Rect : //public VisualShape
+        public QObject, VisualShape
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID VisualShape_iid)
     Q_INTERFACES(VisualShape)
 
 public:

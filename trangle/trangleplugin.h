@@ -3,9 +3,11 @@
 
 #include "plugininterface.h"
 
-class Triangle : public QObject, VisualPolygon
+class Triangle : //public VisualPolygon
+        public QObject, VisualPolygon
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID VisualPolygon_iid)
     Q_INTERFACES(VisualPolygon)
 
 public:

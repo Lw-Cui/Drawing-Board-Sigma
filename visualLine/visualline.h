@@ -3,9 +3,11 @@
 
 #include "plugininterface.h"
 
-class VisualLine : public QObject, VisualObject
+class VisualLine : //public VisualObject
+        public QObject, VisualObject
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID VisualObject_iid)
     Q_INTERFACES(VisualObject)
 
 public:
