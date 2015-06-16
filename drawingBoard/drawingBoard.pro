@@ -15,13 +15,12 @@ TEMPLATE = app
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    scribblearea.cpp \
-    visualobject.cpp
+    scribblearea.cpp
 
 HEADERS  += \
     mainwindow.h \
     scribblearea.h \
-    visualobject.h
+    plugininterface.h
 
 RESOURCES += \
     image.qrc

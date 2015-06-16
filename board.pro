@@ -1,3 +1,8 @@
 TEMPLATE    = subdirs
 SUBDIRS	    = drawingBoard \
-		    plugin
+	    rectangle \
+    trangle \
+    circle \
+    ellipse \
+    visualLine \
+    straight
