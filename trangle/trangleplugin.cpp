@@ -33,3 +33,17 @@ void Triangle::paintWith(QPainter &painter)
         painter.drawLine(points[points.size() - 1], tempPosition);
     }
 }
+
+
+TriangleFactory::TriangleFactory()
+{
+    myShape = triangle;
+}
+
+VisualObject *TriangleFactory::create(CurrentShape thisShape)
+{
+    if (thisShape == myShape)
+        return new Triangle;
+    else
+        return NULL;
+}

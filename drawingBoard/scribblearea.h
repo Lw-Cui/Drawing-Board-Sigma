@@ -10,6 +10,7 @@
 #include <QString>
 #include <QImage>
 #include <QPluginLoader>
+#include <QDir>
 #include <QPoint>
 #include "plugininterface.h"
 
@@ -21,7 +22,7 @@ enum CurrentOp {
 class pluginFactory
 {
 public:
-    void loadPlugin(const QString &path);
+    void loadPlugin(const QDir &pluginsDir);
     VisualObject *getPlugin(enum CurrentShape shape);
 
     ~pluginFactory();
@@ -73,10 +74,8 @@ protected:
     void paintEvent(QPaintEvent *);
 
 private:
-    void loadPlugin();
-
-    void newDrawEntity(const QPoint &);
-    //void findMoveEntity(const QPoint &point);
+    void SetDrawEntity(const QPoint &);
+    void SetMoveEntity(const QPoint &point);
 
     void loadImage(const QString &fileName);
     void loadMyFormat(const QString &fileName);
@@ -85,14 +84,14 @@ private:
 
     pluginFactory factory;
 
-    QList<QPointer<VisualObject> > AllShape;
-    QList<QPointer<VisualObject> > cacheShape;
+    QList <VisualObject*> AllShape;
+    QList <VisualObject*> cacheShape;
 
     CurrentOp op;
     CurrentShape shape;
 
-    //QPointer<VisualArea> moveEntity;
-    QPointer<VisualObject> drawEntity;
+    VisualObject* drawEntity;
+    VisualArea* moveEntity;
 
     bool modified;
     QByteArray fileSuffix;

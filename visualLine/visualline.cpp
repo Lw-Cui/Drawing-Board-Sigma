@@ -4,8 +4,8 @@
 VisualLine::VisualLine()
     : drawingBoard(QSize(1000, 1000), QImage::Format_ARGB32)
 {
-    drawingBoard.fill(Qt::transparent);
     myShape = scribble;
+    drawingBoard.fill(Qt::transparent);
 }
 
 void VisualLine::setDrawStart(const QPoint &point)
@@ -44,4 +44,18 @@ bool VisualLine::isMoveable()
 bool VisualLine::isDone()
 {
     return true;
+}
+
+
+VisualLineFactory::VisualLineFactory()
+{
+    myShape = scribble;
+}
+
+VisualObject *VisualLineFactory::create(CurrentShape thisShape)
+{
+    if (thisShape == myShape)
+        return new VisualLine;
+    else
+        return NULL;
 }

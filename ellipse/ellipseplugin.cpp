@@ -21,3 +21,17 @@ void Ellipse::paintWith(QPainter &painter)
 }
 
 
+
+
+EllipseFactory::EllipseFactory()
+{
+    myShape = ellipse;
+}
+
+VisualObject *EllipseFactory::create(CurrentShape thisShape)
+{
+    if (thisShape == myShape)
+        return new Ellipse;
+    else
+        return NULL;
+}

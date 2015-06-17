@@ -3,13 +3,8 @@
 
 #include "plugininterface.h"
 
-class VisualLine : //public VisualObject
-        public QObject, VisualObject
+class VisualLine : public VisualObject
 {
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID VisualObject_iid)
-    Q_INTERFACES(VisualObject)
-
 public:
     VisualLine();
     void drawTo(MouseStatus, const QPoint &position);
@@ -25,6 +20,17 @@ public:
 private:
     QImage drawingBoard;
     QPoint lastPoint;
+};
+
+class VisualLineFactory :
+        public QObject, ObjectFactory
+{
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID VisualObjectFactory_iid)
+    Q_INTERFACES(ObjectFactory)
+public:
+    VisualLineFactory();
+    VisualObject *create(CurrentShape thisShape);
 };
 
 #endif // VISUALLINE

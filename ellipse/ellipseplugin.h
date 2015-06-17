@@ -3,12 +3,8 @@
 
 #include "plugininterface.h"
 
-class Ellipse : //public VisualShape
-        public QObject, VisualShape
+class Ellipse : public VisualShape
 {
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID VisualShape_iid)
-    Q_INTERFACES(VisualShape)
 
 public:
     Ellipse();
@@ -17,6 +13,16 @@ public:
     void paintWith(QPainter &painter);
 };
 
+class EllipseFactory :
+        public QObject, ObjectFactory
+{
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID VisualObjectFactory_iid)
+    Q_INTERFACES(ObjectFactory)
+public:
+    EllipseFactory();
+    VisualObject *create(CurrentShape thisShape);
+};
 
 #endif // ELLIPSEPLUGIN
 

@@ -1,10 +1,10 @@
 #include "straight.h"
 
+
 Straight::Straight()
 {
     myShape = straight;
 }
-
 
 bool Straight::isContains(const QPoint &)
 {
@@ -17,3 +17,15 @@ void Straight::paintWith(QPainter &painter)
 }
 
 
+StraightFactory::StraightFactory()
+{
+    myShape = straight;
+}
+
+VisualObject *StraightFactory::create(CurrentShape thisShape)
+{
+    if (thisShape == myShape)
+        return new Straight;
+    else
+        return NULL;
+}

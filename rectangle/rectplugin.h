@@ -3,18 +3,24 @@
 
 #include "plugininterface.h"
 
-class Rect : //public VisualShape
-        public QObject, VisualShape
+class Rect : public VisualShape
 {
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID VisualShape_iid)
-    Q_INTERFACES(VisualShape)
-
 public:
     Rect();
 
     bool isContains(const QPoint &point);
     void paintWith(QPainter &painter);
+};
+
+class RectFactory : public QObject, ObjectFactory
+{
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID VisualObjectFactory_iid)
+    Q_INTERFACES(ObjectFactory)
+
+public:
+    RectFactory();
+    VisualObject *create(CurrentShape thisShape);
 };
 
 #endif // RECTPLUGIN

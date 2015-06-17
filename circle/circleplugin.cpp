@@ -19,3 +19,17 @@ void Circle::paintWith(QPainter &painter)
     painter.drawEllipse(startPoint.x(), startPoint.y(),
                         diameter, diameter);
 }
+
+
+CircleFactory::CircleFactory()
+{
+    myShape = circle;
+}
+
+VisualObject *CircleFactory::create(CurrentShape thisShape)
+{
+    if (thisShape == myShape)
+        return new Circle;
+    else
+        return NULL;
+}

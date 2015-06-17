@@ -3,13 +3,8 @@
 
 #include "plugininterface.h"
 
-class Triangle : //public VisualPolygon
-        public QObject, VisualPolygon
+class Triangle : public VisualPolygon
 {
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID VisualPolygon_iid)
-    Q_INTERFACES(VisualPolygon)
-
 public:
     Triangle();
     bool isDone();
@@ -17,6 +12,17 @@ public:
 
 private:
     const static int EDGE = 3;
+};
+
+class TriangleFactory :
+        public QObject, ObjectFactory
+{
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID VisualObjectFactory_iid)
+    Q_INTERFACES(ObjectFactory)
+public:
+    TriangleFactory();
+    VisualObject *create(CurrentShape thisShape);
 };
 
 

@@ -25,9 +25,8 @@ enum MouseStatus {
     Release
 };
 
-class VisualObject //: public QObject
+class VisualObject
 {
-    //Q_OBJECT
 public:
     virtual void setDrawStart(const QPoint &point) = 0;
 
@@ -42,9 +41,6 @@ public:
 
     CurrentShape myShape;
 };
-
-#define VisualObject_iid "drawingBoard.plugin.VisualObject"
-Q_DECLARE_INTERFACE(VisualObject, VisualObject_iid)
 
 class VisualArea : public VisualObject
 {
@@ -63,9 +59,6 @@ protected:
     QPoint moveStart;
     QPoint moveVector;
 };
-
-#define VisualArea_iid "drawingBoard.plugin.VisualArea"
-Q_DECLARE_INTERFACE(VisualArea, VisualArea_iid)
 
 class VisualShape : public VisualArea
 {
@@ -102,9 +95,6 @@ protected:
     QPoint startPoint;
     QPoint endPoint;
 };
-
-#define VisualShape_iid "drawingBoard.plugin.VisualArea"
-Q_DECLARE_INTERFACE(VisualShape, VisualShape_iid)
 
 class VisualPolygon : public VisualArea
 {
@@ -149,8 +139,17 @@ protected:
     QPoint tempPosition;
 };
 
-#define VisualPolygon_iid "drawingBoard.plugin.VisualPolygon"
-Q_DECLARE_INTERFACE(VisualPolygon, VisualPolygon_iid)
+class ObjectFactory
+{
+public:
+    virtual VisualObject* create(CurrentShape thisShape) = 0;
+
+protected:
+    CurrentShape myShape;
+};
+
+#define VisualObjectFactory_iid "drawingBoard.plugin.VisualObject"
+Q_DECLARE_INTERFACE(ObjectFactory, VisualObjectFactory_iid)
 
 #endif // PLUGININTERFACE
 

@@ -3,18 +3,23 @@
 
 #include "plugininterface.h"
 
-class Straight : //public VisualShape
-        public QObject, VisualShape
+class Straight : public VisualShape
 {
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID VisualShape_iid)
-    Q_INTERFACES(VisualShape)
-
 public:
     Straight();
-
     bool isContains(const QPoint &);
     void paintWith(QPainter &painter);
+};
+
+class StraightFactory : public QObject, ObjectFactory
+{
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID VisualObjectFactory_iid)
+    Q_INTERFACES(ObjectFactory)
+
+public:
+    StraightFactory();
+    VisualObject *create(CurrentShape thisShape);
 };
 
 #endif // STRAIGHT
