@@ -44,6 +44,7 @@ void MainWindow::createMenu()
 
 void MainWindow::createDockWindow()
 {
+    /*
     QGridLayout *shapeLayout = new QGridLayout;
     shapeLayout->addWidget(drawRectBut, 0, 0);
     shapeLayout->addWidget(drawEllipseBut, 1, 0);
@@ -52,9 +53,15 @@ void MainWindow::createDockWindow()
     shapeLayout->addWidget(drawTriangleBut, 4, 0);
     shapeLayout->addWidget(ScribbleBut, 5, 0);
     shapeLayout->addWidget(moveBut, 6, 0);
+    */
+
+    QVBoxLayout *shapeLayout = new QVBoxLayout;
+    QVector <QPushButton *> allButton = scribbleArea->getShapeButton();
+    foreach(QPushButton *button, allButton)
+        shapeLayout->addWidget(button);
 
     shape = new QGroupBox(tr("paint"));
-    setLayout(shapeLayout);
+    //setLayout(shapeLayout);
     shape->setLayout(shapeLayout);
 
     QGridLayout *toolLayout = new QGridLayout;
@@ -77,7 +84,6 @@ void MainWindow::createDockWindow()
     addDockWidget(Qt::LeftDockWidgetArea, BoxDock);
 
     BoxDock->setWidget(paintBox);
-    //BoxDock->setWidget(shape);
 }
 
 
@@ -133,6 +139,7 @@ void MainWindow::createAction()
 
 void MainWindow::createButton()
 {
+    /*
     drawRectBut = new QPushButton;
     drawRectBut->setIcon(QIcon(":/shape/rect"));
     connect(drawRectBut, SIGNAL(clicked()), scribbleArea, SLOT(setRect()));
@@ -158,6 +165,7 @@ void MainWindow::createButton()
     drawTriangleBut = new QPushButton;
     drawTriangleBut->setIcon(QIcon(":/shape/triangle"));
     connect(drawTriangleBut, SIGNAL(clicked()), scribbleArea, SLOT(setTriangle()));
+    */
 
     moveBut = new QPushButton;
     moveBut->setIcon(QIcon(":/cursor/move"));

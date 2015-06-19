@@ -19,7 +19,11 @@ class StraightFactory : public QObject, ObjectFactory
 
 public:
     StraightFactory();
-    VisualObject *create(CurrentShape thisShape);
+    VisualObject *create(const QString &thisLabel);
+    QPushButton *MyButton();
+
+private slots:
+    void changeShape();
 };
 
 #endif // STRAIGHT

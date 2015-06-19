@@ -1,9 +1,11 @@
 #include <QtWidgets>
+#include "globalvar.h"
 #include "ellipseplugin.h"
+#define ID_LABEL "ellipse"
 
 Ellipse::Ellipse()
 {
-    myShape = ellipse;
+    identifyLabel = ID_LABEL;
 }
 
 bool Ellipse::isContains(const QPoint &point)
@@ -25,13 +27,25 @@ void Ellipse::paintWith(QPainter &painter)
 
 EllipseFactory::EllipseFactory()
 {
-    myShape = ellipse;
 }
 
-VisualObject *EllipseFactory::create(CurrentShape thisShape)
+VisualObject *EllipseFactory::create(const QString &thisLabel)
 {
-    if (thisShape == myShape)
+    if (thisLabel == ID_LABEL)
         return new Ellipse;
     else
         return NULL;
+}
+
+QPushButton *EllipseFactory::MyButton()
+{
+    QPushButton *drawEllipseBut = new QPushButton;
+    drawEllipseBut->setIcon(QIcon(":/shape/ellipse"));
+    connect(drawEllipseBut, SIGNAL(clicked()), this, SLOT(changeShape()));
+    return drawEllipseBut;
+}
+
+void EllipseFactory::changeShape()
+{
+    currentShape = ID_LABEL;
 }

@@ -1,9 +1,12 @@
 #include <QtWidgets>
 #include "circleplugin.h"
+#include "globalvar.h"
+
+#define ID_LABEL "Circle"
 
 Circle::Circle()
 {
-    myShape = circle;
+    identifyLabel = ID_LABEL;
 }
 
 bool Circle::isContains(const QPoint &point)
@@ -23,13 +26,25 @@ void Circle::paintWith(QPainter &painter)
 
 CircleFactory::CircleFactory()
 {
-    myShape = circle;
 }
 
-VisualObject *CircleFactory::create(CurrentShape thisShape)
+VisualObject *CircleFactory::create(const QString &thisLabel)
 {
-    if (thisShape == myShape)
+    if (thisLabel == ID_LABEL)
         return new Circle;
     else
         return NULL;
+}
+
+QPushButton *CircleFactory::MyButton()
+{
+    QPushButton *drawCircleBut = new QPushButton;
+    drawCircleBut->setIcon(QIcon(":/shape/circle"));
+    connect(drawCircleBut, SIGNAL(clicked()), this, SLOT(changeShape()));
+    return drawCircleBut;
+}
+
+void CircleFactory::changeShape()
+{
+    currentShape = ID_LABEL;
 }

@@ -10,3 +10,6 @@ SOURCES 	+= \
 
 SOURCES += \
     ellipseplugin.cpp
+
+RESOURCES += \
+    icon.qrc

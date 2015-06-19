@@ -9,3 +9,6 @@ SOURCES 	+= \
 
 HEADERS += \
     visualline.h
+
+RESOURCES += \
+    icon.qrc

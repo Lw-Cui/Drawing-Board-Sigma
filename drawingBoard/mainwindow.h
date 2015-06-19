@@ -50,13 +50,16 @@ private:
 
     QGroupBox *paintBox;
 
+
     QGroupBox *shape;
+    /*
     QPushButton *drawRectBut;
     QPushButton *drawCircleBut;
     QPushButton *ScribbleBut;
     QPushButton *drawEllipseBut;
     QPushButton *drawStraightBut;
     QPushButton *drawTriangleBut;
+    */
 
     QGroupBox *tool;
     QPushButton *moveBut;

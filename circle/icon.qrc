@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/shape">
+        <file alias="circle">circle.png</file>
+    </qresource>
+</RCC>

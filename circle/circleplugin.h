@@ -17,10 +17,14 @@ class CircleFactory :
     Q_OBJECT
     Q_PLUGIN_METADATA(IID VisualObjectFactory_iid)
     Q_INTERFACES(ObjectFactory)
+
 public:
     CircleFactory();
-    VisualObject *create(CurrentShape thisShape);
+    VisualObject *create(const QString &thisLabel);
+    QPushButton *MyButton();
+
+private slots:
+    void changeShape();
 };
 
 #endif // CIRCLEPLUGIN
-

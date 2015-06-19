@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/shape">
+        <file alias="scribble">scribble.png</file>
+    </qresource>
+</RCC>

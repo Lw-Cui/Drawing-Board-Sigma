@@ -3,21 +3,13 @@
 
 #include <QWidget>
 #include <QSize>
+#include <QPushButton>
 #include <QVector>
 #include <QString>
 #include <QImage>
 #include <QPoint>
 #include <QPainter>
 #include <QDataStream>
-
-enum CurrentShape{
-    scribble,
-    rectangle,
-    circle,
-    ellipse,
-    straight,
-    triangle
-};
 
 enum MouseStatus {
     Press,
@@ -39,7 +31,12 @@ public:
     virtual bool isMoveable() = 0;
     virtual bool isDone() = 0;
 
-    CurrentShape myShape;
+    const QString &identify() {
+        return identifyLabel;
+    }
+
+protected:
+    QString identifyLabel;
 };
 
 class VisualArea : public VisualObject
@@ -54,6 +51,7 @@ public:
     bool isMoveable() {
         return true;
     }
+
 
 protected:
     QPoint moveStart;
@@ -142,10 +140,8 @@ protected:
 class ObjectFactory
 {
 public:
-    virtual VisualObject* create(CurrentShape thisShape) = 0;
-
-protected:
-    CurrentShape myShape;
+    virtual VisualObject *create(const QString &thisLabel) = 0;
+    virtual QPushButton *MyButton() = 0;
 };
 
 #define VisualObjectFactory_iid "drawingBoard.plugin.VisualObject"

@@ -20,7 +20,11 @@ class RectFactory : public QObject, ObjectFactory
 
 public:
     RectFactory();
-    VisualObject *create(CurrentShape thisShape);
+    VisualObject *create(const QString &thisLabel);
+    QPushButton *MyButton();
+
+private slots:
+    void changeShape();
 };
 
 #endif // RECTPLUGIN

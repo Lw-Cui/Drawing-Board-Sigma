@@ -1,9 +1,11 @@
 #include <QtWidgets>
 #include "rectplugin.h"
+#include "globalvar.h"
+#define ID_LABEL "rectangle"
 
 Rect::Rect()
 {
-    myShape = rectangle;
+    identifyLabel = ID_LABEL;
 }
 
 bool Rect::isContains(const QPoint &point)
@@ -20,13 +22,25 @@ void Rect::paintWith(QPainter &painter)
 
 RectFactory::RectFactory()
 {
-    myShape = rectangle;
 }
 
-VisualObject *RectFactory::create(CurrentShape thisShape)
+VisualObject *RectFactory::create(const QString &thisLabel)
 {
-    if (thisShape == myShape)
+    if (thisLabel == ID_LABEL)
         return new Rect;
     else
         return NULL;
+}
+
+QPushButton *RectFactory::MyButton()
+{
+    QPushButton *drawRectButton = new QPushButton;
+    drawRectButton->setIcon(QIcon(":/shape/rect"));
+    connect(drawRectButton, SIGNAL(clicked()), this, SLOT(changeShape()));
+    return drawRectButton;
+}
+
+void RectFactory::changeShape()
+{
+    currentShape = ID_LABEL;
 }

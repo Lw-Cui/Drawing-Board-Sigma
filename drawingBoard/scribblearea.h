@@ -13,17 +13,21 @@
 #include <QDir>
 #include <QPoint>
 #include "plugininterface.h"
+#include "globalvar.h"
 
 enum CurrentOp {
     drawing,
     moving
 };
 
-class pluginFactory
+class pluginFactory : public QObject
 {
+    Q_OBJECT
 public:
+    pluginFactory();
     void loadPlugin(const QDir &pluginsDir);
-    VisualObject *getPlugin(enum CurrentShape shape);
+    VisualObject *getPlugin(const QString &label);
+    QVector<QPushButton *> getShapeButton();
 
     ~pluginFactory();
 private:
@@ -45,8 +49,9 @@ public:
     void saveFile(const QString &fileName);
 
     const QByteArray &getSuffix();
-
     const QSize getSize();
+
+    QVector<QPushButton *> getShapeButton();
 
 signals:
     void sizeChanged(const QSize &);
@@ -54,13 +59,17 @@ signals:
     bool undoAvailable(bool isAvailable);
 
 private slots:
+    /*
     void setRect();
     void setCircle();
     void setScribble();
     void setStraight();
     void setTriangle();
     void setEllipse();
+    */
     void setMoveShape();
+
+    void receiveShapeChange(const QString & shape);
 
     void redo();
     void undo();
@@ -88,7 +97,6 @@ private:
     QList <VisualObject*> cacheShape;
 
     CurrentOp op;
-    CurrentShape shape;
 
     VisualObject* drawEntity;
     VisualArea* moveEntity;

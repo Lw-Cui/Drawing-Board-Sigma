@@ -8,3 +8,6 @@ HEADERS += \
     circleplugin.h
 SOURCES 	+= \
     circleplugin.cpp
+
+RESOURCES += \
+    icon.qrc

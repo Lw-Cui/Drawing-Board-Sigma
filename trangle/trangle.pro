@@ -9,3 +9,6 @@ SOURCES 	+= \
 HEADERS 	+= \
     trangleplugin.h
 
+RESOURCES += \
+    icon.qrc
+

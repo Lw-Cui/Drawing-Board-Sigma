@@ -22,7 +22,11 @@ class TriangleFactory :
     Q_INTERFACES(ObjectFactory)
 public:
     TriangleFactory();
-    VisualObject *create(CurrentShape thisShape);
+    VisualObject *create(const QString &thisLabel);
+    QPushButton *MyButton();
+
+private slots:
+    void changeShape();
 };
 
 

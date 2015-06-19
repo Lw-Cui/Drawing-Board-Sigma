@@ -21,7 +21,12 @@ class EllipseFactory :
     Q_INTERFACES(ObjectFactory)
 public:
     EllipseFactory();
-    VisualObject *create(CurrentShape thisShape);
+    VisualObject *create(const QString &thisLabel);
+
+    QPushButton *MyButton();
+
+private slots:
+    void changeShape();
 };
 
 #endif // ELLIPSEPLUGIN

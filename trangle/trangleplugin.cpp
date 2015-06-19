@@ -1,9 +1,11 @@
 #include <QtWidgets>
+#include "globalvar.h"
 #include "trangleplugin.h"
+#define ID_LABEL "triangle"
 
 Triangle::Triangle()
 {
-    myShape = triangle;
+    identifyLabel = ID_LABEL;
 }
 
 bool Triangle::isDone()
@@ -37,13 +39,25 @@ void Triangle::paintWith(QPainter &painter)
 
 TriangleFactory::TriangleFactory()
 {
-    myShape = triangle;
 }
 
-VisualObject *TriangleFactory::create(CurrentShape thisShape)
+VisualObject *TriangleFactory::create(const QString &thisLabel)
 {
-    if (thisShape == myShape)
+    if (thisLabel == ID_LABEL)
         return new Triangle;
     else
         return NULL;
+}
+
+QPushButton *TriangleFactory::MyButton()
+{
+    QPushButton *drawTriangleButton = new QPushButton;
+    drawTriangleButton->setIcon(QIcon(":/shape/triangle"));
+    connect(drawTriangleButton, SIGNAL(clicked()), this, SLOT(changeShape()));
+    return drawTriangleButton;
+}
+
+void TriangleFactory::changeShape()
+{
+    currentShape = ID_LABEL;
 }

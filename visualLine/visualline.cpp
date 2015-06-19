@@ -1,10 +1,12 @@
 #include <QtWidgets>
+#include "globalvar.h"
 #include "visualline.h"
+#define ID_LABEL "visualLine"
 
 VisualLine::VisualLine()
     : drawingBoard(QSize(1000, 1000), QImage::Format_ARGB32)
 {
-    myShape = scribble;
+    identifyLabel = ID_LABEL;
     drawingBoard.fill(Qt::transparent);
 }
 
@@ -49,13 +51,25 @@ bool VisualLine::isDone()
 
 VisualLineFactory::VisualLineFactory()
 {
-    myShape = scribble;
 }
 
-VisualObject *VisualLineFactory::create(CurrentShape thisShape)
+VisualObject *VisualLineFactory::create(const QString &thisLabel)
 {
-    if (thisShape == myShape)
+    if (thisLabel == ID_LABEL)
         return new VisualLine;
     else
         return NULL;
+}
+
+QPushButton *VisualLineFactory::MyButton()
+{
+    QPushButton *drawScribbleButton = new QPushButton;
+    drawScribbleButton->setIcon(QIcon(":/shape/scribble"));
+    connect(drawScribbleButton, SIGNAL(clicked()), this, SLOT(changeShape()));
+    return drawScribbleButton;
+}
+
+void VisualLineFactory::changeShape()
+{
+    currentShape = ID_LABEL;
 }

@@ -8,3 +8,6 @@ SOURCES 	+= \
     rectplugin.cpp
 HEADERS += \
     rectplugin.h
+
+RESOURCES += \
+    icon.qrc

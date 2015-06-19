@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/shape">
+        <file alias="straight">horizontal_straight.png</file>
+    </qresource>
+</RCC>

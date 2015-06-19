@@ -11,3 +11,6 @@ SOURCES 	+= \
 HEADERS += \
     straight.h
 
+RESOURCES += \
+    icon.qrc
+
