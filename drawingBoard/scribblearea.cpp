@@ -344,7 +344,7 @@ QVector<QPushButton *> pluginFactory::getShapeButton()
     QVector<QPushButton *>ret;
     foreach (QPluginLoader *loader, pluginLoder) {
         ObjectFactory *factory = qobject_cast<ObjectFactory *>(loader->instance());
-        //ret.push_back(factory->MyButton());
+        ret.push_back(factory->MyButton());
     }
     return ret;
 }
