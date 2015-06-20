@@ -15,14 +15,12 @@ TEMPLATE = app
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    scribblearea.cpp \
-    globalvar.cpp
+    scribblearea.cpp
 
 HEADERS  += \
     mainwindow.h \
     scribblearea.h \
-    plugininterface.h \
-    globalvar.h
+    plugininterface.h
 
 RESOURCES += \
     image.qrc

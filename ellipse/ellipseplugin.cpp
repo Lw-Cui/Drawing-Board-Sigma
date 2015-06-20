@@ -1,5 +1,4 @@
 #include <QtWidgets>
-#include "globalvar.h"
 #include "ellipseplugin.h"
 #define ID_LABEL "ellipse"
 
@@ -47,5 +46,5 @@ QPushButton *EllipseFactory::MyButton()
 
 void EllipseFactory::changeShape()
 {
-    currentShape = ID_LABEL;
+    //currentShape = ID_LABEL;
 }

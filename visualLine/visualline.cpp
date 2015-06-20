@@ -1,5 +1,4 @@
 #include <QtWidgets>
-#include "globalvar.h"
 #include "visualline.h"
 #define ID_LABEL "visualLine"
 
@@ -71,5 +70,4 @@ QPushButton *VisualLineFactory::MyButton()
 
 void VisualLineFactory::changeShape()
 {
-    currentShape = ID_LABEL;
 }

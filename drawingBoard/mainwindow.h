@@ -29,7 +29,7 @@ private:
     void createToolBar();
     void createMenu();
     void createDockWindow();
-    void setLayout(QGridLayout *layout);
+    void setLayout(QVBoxLayout *layout);
 
     bool questionAndSave();
 

@@ -61,19 +61,19 @@ void MainWindow::createDockWindow()
         shapeLayout->addWidget(button);
 
     shape = new QGroupBox(tr("paint"));
-    //setLayout(shapeLayout);
+    setLayout(shapeLayout);
     shape->setLayout(shapeLayout);
 
-    QGridLayout *toolLayout = new QGridLayout;
+    QVBoxLayout *toolLayout = new QVBoxLayout;
     setLayout(toolLayout);
-    toolLayout->addWidget(moveBut, 0, 0);
+    toolLayout->addWidget(moveBut);
 
     tool = new QGroupBox(tr("tool"));
     tool->setLayout(toolLayout);
 
-    QGridLayout *paintLayout = new QGridLayout;
-    paintLayout->addWidget(shape, 0, 0);
-    paintLayout->addWidget(tool, 1, 0);
+    QVBoxLayout *paintLayout = new QVBoxLayout;
+    paintLayout->addWidget(shape);
+    paintLayout->addWidget(tool);
     setLayout(paintLayout);
 
     paintBox = new QGroupBox;
@@ -87,7 +87,7 @@ void MainWindow::createDockWindow()
 }
 
 
-void MainWindow::setLayout(QGridLayout *layout)
+void MainWindow::setLayout(QVBoxLayout *layout)
 {
     layout->setAlignment(Qt::AlignTop);
     layout->setSpacing(0);

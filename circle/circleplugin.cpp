@@ -1,6 +1,5 @@
 #include <QtWidgets>
 #include "circleplugin.h"
-#include "globalvar.h"
 
 #define ID_LABEL "Circle"
 
@@ -46,5 +45,4 @@ QPushButton *CircleFactory::MyButton()
 
 void CircleFactory::changeShape()
 {
-    currentShape = ID_LABEL;
 }

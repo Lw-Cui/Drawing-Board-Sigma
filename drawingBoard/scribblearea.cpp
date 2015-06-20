@@ -12,7 +12,7 @@ ScribbleArea::ScribbleArea()
     path.cdUp();
     path.cd("plugDir");
     factory.loadPlugin(path);
-
+    currentShape = "Circle";
 
     setMouseTracking(true);
 }

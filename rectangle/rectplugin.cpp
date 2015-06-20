@@ -1,6 +1,5 @@
 #include <QtWidgets>
 #include "rectplugin.h"
-#include "globalvar.h"
 #define ID_LABEL "rectangle"
 
 Rect::Rect()
@@ -42,5 +41,4 @@ QPushButton *RectFactory::MyButton()
 
 void RectFactory::changeShape()
 {
-    currentShape = ID_LABEL;
 }

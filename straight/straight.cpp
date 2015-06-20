@@ -1,5 +1,4 @@
 #include "straight.h"
-#include "globalvar.h"
 
 #define ID_LABEL "straight"
 
@@ -42,5 +41,5 @@ QPushButton *StraightFactory::MyButton()
 
 void StraightFactory::changeShape()
 {
-    currentShape = ID_LABEL;
+    //currentShape = ID_LABEL;
 }

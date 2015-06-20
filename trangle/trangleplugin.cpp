@@ -1,5 +1,4 @@
 #include <QtWidgets>
-#include "globalvar.h"
 #include "trangleplugin.h"
 #define ID_LABEL "triangle"
 
@@ -59,5 +58,4 @@ QPushButton *TriangleFactory::MyButton()
 
 void TriangleFactory::changeShape()
 {
-    currentShape = ID_LABEL;
 }

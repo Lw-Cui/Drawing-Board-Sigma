@@ -13,7 +13,7 @@
 #include <QDir>
 #include <QPoint>
 #include "plugininterface.h"
-#include "globalvar.h"
+//#include "globalvar.h"
 
 enum CurrentOp {
     drawing,
@@ -90,6 +90,7 @@ private:
     void loadMyFormat(const QString &fileName);
 
     QImage canvas, backGround;
+    QString currentShape;
 
     pluginFactory factory;
 
