@@ -104,7 +104,7 @@ const QSize ScribbleArea::getSize()
 
 QVector<QPushButton *> ScribbleArea::getShapeButton()
 {
-    return factory.getShapeButton();
+    return factory.getShapeButton(&currentShape);
 }
 
 void ScribbleArea::SetDrawEntity(const QPoint &nowPosition)
@@ -326,6 +326,7 @@ void pluginFactory::loadPlugin(const QDir &pluginsDir)
 {
     foreach (QString fileName, pluginsDir.entryList(QDir::Files))
         pluginLoder.push_back(new QPluginLoader(pluginsDir.absoluteFilePath(fileName)));
+
 }
 
 VisualObject *pluginFactory::getPlugin(const QString &label)
@@ -339,11 +340,12 @@ VisualObject *pluginFactory::getPlugin(const QString &label)
     return NULL;
 }
 
-QVector<QPushButton *> pluginFactory::getShapeButton()
+QVector<QPushButton *> pluginFactory::getShapeButton(QString *p)
 {
     QVector<QPushButton *>ret;
     foreach (QPluginLoader *loader, pluginLoder) {
         ObjectFactory *factory = qobject_cast<ObjectFactory *>(loader->instance());
+        factory->setPoint(p);
         ret.push_back(factory->MyButton());
     }
     return ret;

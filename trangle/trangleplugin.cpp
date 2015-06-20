@@ -58,4 +58,5 @@ QPushButton *TriangleFactory::MyButton()
 
 void TriangleFactory::changeShape()
 {
+    *point = ID_LABEL;
 }

@@ -142,6 +142,13 @@ class ObjectFactory
 public:
     virtual VisualObject *create(const QString &thisLabel) = 0;
     virtual QPushButton *MyButton() = 0;
+
+    void setPoint(QString *p) {
+        point = p;
+    }
+
+protected:
+    QString *point;
 };
 
 #define VisualObjectFactory_iid "drawingBoard.plugin.VisualObject"

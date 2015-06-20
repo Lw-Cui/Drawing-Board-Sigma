@@ -70,4 +70,5 @@ QPushButton *VisualLineFactory::MyButton()
 
 void VisualLineFactory::changeShape()
 {
+    *point = ID_LABEL;
 }

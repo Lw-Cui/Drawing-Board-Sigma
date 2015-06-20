@@ -45,4 +45,5 @@ QPushButton *CircleFactory::MyButton()
 
 void CircleFactory::changeShape()
 {
+    *point = ID_LABEL;
 }

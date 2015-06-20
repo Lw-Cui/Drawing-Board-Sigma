@@ -41,5 +41,5 @@ QPushButton *StraightFactory::MyButton()
 
 void StraightFactory::changeShape()
 {
-    //currentShape = ID_LABEL;
+    *point = ID_LABEL;
 }

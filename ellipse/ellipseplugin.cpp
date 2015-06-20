@@ -46,5 +46,5 @@ QPushButton *EllipseFactory::MyButton()
 
 void EllipseFactory::changeShape()
 {
-    //currentShape = ID_LABEL;
+    *point = ID_LABEL;
 }

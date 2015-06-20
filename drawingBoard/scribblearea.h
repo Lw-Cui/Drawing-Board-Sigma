@@ -27,7 +27,7 @@ public:
     pluginFactory();
     void loadPlugin(const QDir &pluginsDir);
     VisualObject *getPlugin(const QString &label);
-    QVector<QPushButton *> getShapeButton();
+    QVector<QPushButton *> getShapeButton(QString *p);
 
     ~pluginFactory();
 private:
