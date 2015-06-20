@@ -66,7 +66,8 @@ void ScribbleArea::loadMyFormat(const QString &fileName)
 
     in >> canvas >> backGround;
 
-    while (in.status() != QDataStream::ReadPastEnd) {
+    //while (in.status() != QDataStream::ReadPastEnd) {
+    while (!in.atEnd()) {
         QString label;
         in >> label;
         VisualObject *obj = factory.getPlugin(label);
@@ -82,12 +83,13 @@ void ScribbleArea::saveFile(const QString &fileName)
     file.open(QIODevice::WriteOnly);
     QDataStream out(&file);
 
-    out << (quint32)0xA0B0C0D0;
     out.setVersion(QDataStream::Qt_5_4);
+    out << (quint32)0xA0B0C0D0;
 
     out << canvas << backGround;
     foreach(VisualObject* ite, AllShape) {
         out << ite->identify();
+        qDebug() << ite->identify();
         ite->writeToStream(out);
     }
 }
