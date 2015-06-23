@@ -13,6 +13,7 @@
 #include <QDir>
 #include <QPoint>
 #include "plugininterface.h"
+//#include "globalvar.h"
 
 enum CurrentOp {
     drawing,
