@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/shape">
+        <file alias="ellipse">Ellipse.png</file>
+    </qresource>
+</RCC>

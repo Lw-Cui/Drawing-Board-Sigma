@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/shape">
+        <file alias="rect">rectangle.png</file>
+    </qresource>
+</RCC>

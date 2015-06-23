@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/shape">
+        <file alias="triangle">arrow_triangle.png</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/action">
+        <file alias="undo">resources/undo.png</file>
+        <file alias="redo">resources/redo.png</file>
+        <file alias="open">resources/add.png</file>
+        <file alias="save">resources/archives.png</file>
+    </qresource>
+    <qresource prefix="/cursor">
+        <file alias="scribble">resources/x.png</file>
+        <file alias="move">resources/move.png</file>
+    </qresource>
+</RCC>
