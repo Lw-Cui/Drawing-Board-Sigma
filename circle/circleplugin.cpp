@@ -1,4 +1,5 @@
 #include <QtWidgets>
+#include <QtMath>
 #include "circleplugin.h"
 
 #define ID_LABEL "Circle"
@@ -17,9 +18,10 @@ bool Circle::isContains(const QPoint &point)
 
 void Circle::paintWith(QPainter &painter)
 {
-    int diameter = endPoint.x() - startPoint.x();
-    painter.drawEllipse(startPoint.x(), startPoint.y(),
-                        diameter, diameter);
+    qreal xpos = (startPoint.x() + endPoint.x()) / 2;
+    qreal ypos = (startPoint.y() + endPoint.y()) / 2;
+    qreal diameter = qSqrt(qPow(endPoint.x() - startPoint.x(), 2) + qPow(endPoint.y() - startPoint.y(), 2)) / 2;
+    painter.drawEllipse(QPointF(xpos, ypos), diameter, diameter);
 }
 
 
