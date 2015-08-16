@@ -7,8 +7,11 @@ MainWindow::MainWindow(QWidget *parent)
     scribbleArea = new ScribbleArea;
     setCentralWidget(scribbleArea);
 
-    resize(scribbleArea->getSize().width() + 100,
-           scribbleArea->getSize().height() + 100);
+    connect(this, SIGNAL(resizeAll(QSize)), scribbleArea, SLOT(resizeCanvas(QSize)));
+
+    QSize new_size(800, 680);
+    resize(new_size);
+    emit resizeAll(new_size);
 
     createAction();
     createButton();
@@ -28,6 +31,13 @@ void MainWindow::closeEvent(QCloseEvent *event)
         event->accept();
     else
         event->ignore();
+}
+
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    QMainWindow::resizeEvent(event);
+    QSize new_size = event->size();
+    emit resizeAll(QSize(new_size.width() - 100, new_size.height() - 100));
 }
 
 void MainWindow::createMenu()

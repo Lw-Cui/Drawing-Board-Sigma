@@ -45,5 +45,5 @@ QPushButton *CircleFactory::MyButton()
 
 void CircleFactory::changeShape()
 {
-       changeShapeCommand->execute(ID_LABEL);
+    changeShapeCommand->execute(ID_LABEL);
 }

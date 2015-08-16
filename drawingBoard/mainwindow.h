@@ -18,6 +18,10 @@ public:
 
 protected:
     void closeEvent(QCloseEvent *event);
+    void resizeEvent(QResizeEvent *event);
+
+signals:
+    void resizeAll(const QSize);
 
 private slots:
     void open();

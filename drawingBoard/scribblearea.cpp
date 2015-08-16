@@ -5,7 +5,6 @@
 ScribbleArea::ScribbleArea()
     :drawEntity(NULL), moveEntity(NULL), modified(false)
 {
-    resizeCanvas(QSize(470, 350));
     fileSuffix.append("pt");
 
     QDir path = qApp->applicationDirPath();
