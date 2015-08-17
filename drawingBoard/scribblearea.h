@@ -13,12 +13,12 @@
 #include <QDir>
 #include <QPoint>
 #include "plugininterface.h"
-//#include "globalvar.h"
 
 enum CurrentOp {
     drawing,
     moving
 };
+
 
 class pluginFactory : public QObject
 {
@@ -26,6 +26,8 @@ class pluginFactory : public QObject
 public:
     pluginFactory();
     void loadPlugin(const QDir &pluginsDir);
+    void loadPlugin(const QString &pluginPath);
+
     VisualObject *getPlugin(const QString &label);
     QVector<QPushButton *> getShapeButton(Command *p);
 
@@ -46,6 +48,7 @@ private:
     ScribbleArea *application;
 };
 
+
 class ScribbleArea : public QWidget
 {
     Q_OBJECT
@@ -59,6 +62,8 @@ public:
     void loadFile(const QString &fileName);
     void saveAsFile(const QString &fileName, QByteArray format);
     void saveFile(const QString &fileName);
+
+    void loadPlugin(const QString &filePath);
 
     void ShapeChange(const QString & shape);
 

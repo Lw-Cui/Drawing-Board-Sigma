@@ -1,4 +1,5 @@
 #include <QtWidgets>
+#include <QDebug>
 #include "scribblearea.h"
 #include "plugininterface.h"
 
@@ -6,12 +7,10 @@ ScribbleArea::ScribbleArea()
     :drawEntity(NULL), moveEntity(NULL), modified(false)
 {
     fileSuffix.append("pt");
-
     QDir path = qApp->applicationDirPath();
     path.cdUp();
     path.cd("plugDir");
     factory.loadPlugin(path);
-    currentShape = "Circle";
 
     setMouseTracking(true);
 }
@@ -89,6 +88,11 @@ void ScribbleArea::saveFile(const QString &fileName)
         out << ite->identify();
         ite->writeToStream(out);
     }
+}
+
+void ScribbleArea::loadPlugin(const QString &filePath)
+{
+    factory.loadPlugin(filePath);
 }
 
 const QByteArray &ScribbleArea::getSuffix()
@@ -193,7 +197,7 @@ void ScribbleArea::mousePressEvent(QMouseEvent *event)
 {
     switch (op) {
     case drawing:
-        if (!drawEntity)
+        if (!drawEntity && !currentShape.isEmpty())
             SetDrawEntity(event->pos());
         break;
     case moving:
@@ -273,15 +277,35 @@ void ScribbleArea::paintEvent(QPaintEvent *)
     Paint.drawImage(QPoint(0, 0), canvas);
 }
 
+
+ChangeShapeCommand::ChangeShapeCommand(ScribbleArea *p)
+    :application(p)
+{
+}
+
+void ChangeShapeCommand::execute(const QString &shape)
+{
+    application->ShapeChange(shape);
+}
+
+
 pluginFactory::pluginFactory()
 {
 }
 
 void pluginFactory::loadPlugin(const QDir &pluginsDir)
 {
-    foreach (QString fileName, pluginsDir.entryList(QDir::Files))
+    foreach (QString fileName, pluginsDir.entryList(QDir::Files)) {
         pluginLoder.push_back(new QPluginLoader(pluginsDir.absoluteFilePath(fileName)));
+        qDebug() << pluginsDir.absoluteFilePath(fileName);
+    }
 
+}
+
+void pluginFactory::loadPlugin(const QString &pluginPath)
+{
+    pluginLoder.push_back(new QPluginLoader(pluginPath));
+    qDebug() << pluginPath;
 }
 
 VisualObject *pluginFactory::getPlugin(const QString &label)
@@ -312,13 +336,3 @@ pluginFactory::~pluginFactory()
         delete loader;
 }
 
-
-ChangeShapeCommand::ChangeShapeCommand(ScribbleArea *p)
-    :application(p)
-{
-}
-
-void ChangeShapeCommand::execute(const QString &shape)
-{
-    application->ShapeChange(shape);
-}

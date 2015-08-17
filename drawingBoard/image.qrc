@@ -4,6 +4,7 @@
         <file alias="redo">resources/redo.png</file>
         <file alias="open">resources/add.png</file>
         <file alias="save">resources/archives.png</file>
+        <file alias="addplugin">resources/addPlugin.png</file>
     </qresource>
     <qresource prefix="/cursor">
         <file alias="scribble">resources/x.png</file>

@@ -42,14 +42,17 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 
 void MainWindow::createMenu()
 {
-    fileMenu = menuBar()->addMenu(tr("&file"));
+    fileMenu = menuBar()->addMenu(tr("&File"));
     fileMenu->addAction(openAct);
     fileMenu->addSeparator();
     fileMenu->addAction(saveAct);
 
-    editMenu = menuBar()->addMenu(tr("&edit"));
+    editMenu = menuBar()->addMenu(tr("&Edit"));
     editMenu->addAction(undoAct);
     editMenu->addAction(redoAct);
+
+    pluginMenu = menuBar()->addMenu(tr("&Plugin"));
+    pluginMenu->addAction(addPluginAct);
 }
 
 void MainWindow::createDockWindow()
@@ -65,25 +68,25 @@ void MainWindow::createDockWindow()
     shapeLayout->addWidget(moveBut, 6, 0);
     */
 
-    QVBoxLayout *shapeLayout = new QVBoxLayout;
+    shapeLayout = new QVBoxLayout;
     QVector <QPushButton *> allButton = scribbleArea->getShapeButton();
     foreach(QPushButton *button, allButton)
         shapeLayout->addWidget(button);
 
-    shape = new QGroupBox(tr("paint"));
+    shapeBox = new QGroupBox(tr("paint"));
     setLayout(shapeLayout);
-    shape->setLayout(shapeLayout);
+    shapeBox->setLayout(shapeLayout);
 
-    QVBoxLayout *toolLayout = new QVBoxLayout;
+    toolLayout = new QVBoxLayout;
     setLayout(toolLayout);
     toolLayout->addWidget(moveBut);
 
-    tool = new QGroupBox(tr("tool"));
-    tool->setLayout(toolLayout);
+    toolBox = new QGroupBox(tr("tool"));
+    toolBox->setLayout(toolLayout);
 
-    QVBoxLayout *paintLayout = new QVBoxLayout;
-    paintLayout->addWidget(shape);
-    paintLayout->addWidget(tool);
+    paintLayout = new QVBoxLayout;
+    paintLayout->addWidget(shapeBox);
+    paintLayout->addWidget(toolBox);
     setLayout(paintLayout);
 
     paintBox = new QGroupBox;
@@ -101,7 +104,17 @@ void MainWindow::setLayout(QVBoxLayout *layout)
 {
     layout->setAlignment(Qt::AlignTop);
     layout->setSpacing(0);
-    layout->setContentsMargins(5, 8, 0, 8);
+    layout->setContentsMargins(0, 0, 0, 15);
+}
+
+void MainWindow::reloadPaintBox()
+{
+    while(QLayoutItem *item = shapeLayout->takeAt(0)) {
+        delete item;
+    }
+    QVector <QPushButton *> allButton = scribbleArea->getShapeButton();
+    foreach(QPushButton *button, allButton)
+        shapeLayout->addWidget(button);
 }
 
 bool MainWindow::questionAndSave()
@@ -145,6 +158,9 @@ void MainWindow::createAction()
     saveAct = new QAction(QIcon(":/action/save"), tr("&save"), this);
     saveAct->setShortcut(QKeySequence::Save);
     connect(saveAct, SIGNAL(triggered()), this, SLOT(save()));
+
+    addPluginAct = new QAction(QIcon(":/action/addplugin"), tr("&plugin"), this);
+    connect(addPluginAct, SIGNAL(triggered()), this, SLOT(addPlugin()));
 }
 
 void MainWindow::createButton()
@@ -191,10 +207,15 @@ void MainWindow::createToolBar()
     fileToolBar->addAction(saveAct);
     fileToolBar->setIconSize(QSize(17, 17));
 
-    editToolBar = addToolBar(tr("edit"));
+    editToolBar = addToolBar(tr("Edit"));
     editToolBar->addAction(undoAct);
     editToolBar->addAction(redoAct);
     editToolBar->setIconSize(QSize(17, 17));
+
+    pluginToolBar = addToolBar(tr("File"));
+    pluginToolBar->addAction(addPluginAct);
+    pluginToolBar->setIconSize(QSize(17, 17));
+
 }
 
 void MainWindow::open()
@@ -226,4 +247,13 @@ bool MainWindow::save()
         scribbleArea->setModified(false);
     }
     return true;
+}
+
+void MainWindow::addPlugin()
+{
+    QString filename = QFileDialog::getOpenFileName(this, tr("open plugin"), "", tr("Plugin (*.so)"));
+    if (!filename.isEmpty()) {
+        scribbleArea->loadPlugin(filename);
+        reloadPaintBox();
+    }
 }

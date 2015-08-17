@@ -26,6 +26,7 @@ signals:
 private slots:
     void open();
     bool save();
+    void addPlugin();
 
 private:
     void createAction();
@@ -35,27 +36,37 @@ private:
     void createDockWindow();
     void setLayout(QVBoxLayout *layout);
 
+    void reloadPaintBox();
     bool questionAndSave();
 
     QString currentfileName;
 
     QMenu *fileMenu;
     QMenu *editMenu;
+    QMenu *pluginMenu;
 
     QToolBar *fileToolBar;
     QToolBar *editToolBar;
+    QToolBar *pluginToolBar;
 
     QAction *undoAct;
     QAction *redoAct;
     QAction *openAct;
     QAction *saveAct;
+    QAction *addPluginAct;
 
     QDockWidget *BoxDock;
+    QVBoxLayout *shapeLayout;
+    QVBoxLayout *toolLayout;
+    QVBoxLayout *paintLayout;
 
     QGroupBox *paintBox;
+    QGroupBox *toolBox;
+    QGroupBox *shapeBox;
 
 
-    QGroupBox *shape;
+    QPushButton *moveBut;
+
     /*
     QPushButton *drawRectBut;
     QPushButton *drawCircleBut;
@@ -65,8 +76,6 @@ private:
     QPushButton *drawTriangleBut;
     */
 
-    QGroupBox *tool;
-    QPushButton *moveBut;
 
     ScribbleArea *scribbleArea;
 
