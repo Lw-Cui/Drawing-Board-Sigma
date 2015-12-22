@@ -23,4 +23,4 @@ V0.7
 
 
 ## More information? ##
-[Wiki](dhttps://github.com/Lw-Cui/Drawing-board/wiki)
+![Wiki](dhttps://github.com/Lw-Cui/Drawing-board/wiki)
