@@ -18,5 +18,9 @@ I wrote it using Qt 5.4@ubuntu 14.04, so other linux distributions is OK.
 ## notes: ##
 please store your plugin in `./pluginDir`.
 
-## current Vision:
+## current Vision: ##
 V0.7
+
+
+## More information? ##
+[Wiki](dhttps://github.com/Lw-Cui/Drawing-board/wiki)
